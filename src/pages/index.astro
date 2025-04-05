@@ -2,4 +2,80 @@
 import DefaultLayout from "../layouts/DefaultLayout.astro";
 ---
 
-<DefaultLayout> 123 </DefaultLayout>
+<DefaultLayout>
+  <div class="min-h-screen bg-base-100">
+    <!-- 導航欄 -->
+    <div class="navbar bg-base-200">
+      <div class="navbar-start">
+        <a class="btn btn-ghost text-xl">我的部落格</a>
+      </div>
+      <div class="navbar-center">
+        <ul class="menu menu-horizontal px-1">
+          <li><a>首頁</a></li>
+          <li><a>文章</a></li>
+          <li><a>關於</a></li>
+        </ul>
+      </div>
+      <div class="navbar-end">
+        <button class="btn btn-primary">登入</button>
+      </div>
+    </div>
+
+    <!-- 主要內容區 -->
+    <main class="container mx-auto p-4">
+      <!-- 英雄區塊 -->
+      <div class="hero bg-base-200 rounded-lg">
+        <div class="hero-content text-center">
+          <div class="max-w-md">
+            <h1 class="text-5xl font-bold">歡迎來到我的部落格</h1>
+            <p class="py-6">這裡是我分享技術文章和心得的地方</p>
+            <button class="btn btn-primary">開始閱讀</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 文章卡片區 -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
+        <!-- 文章卡片 1 -->
+        <div class="card bg-base-200 shadow-xl">
+          <div class="card-body">
+            <h2 class="card-title">最新文章</h2>
+            <p>這是一篇測試文章的描述...</p>
+            <div class="card-actions justify-end">
+              <button class="btn btn-primary">閱讀更多</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 文章卡片 2 -->
+        <div class="card bg-base-200 shadow-xl">
+          <div class="card-body">
+            <h2 class="card-title">熱門文章</h2>
+            <p>這是另一篇測試文章的描述...</p>
+            <div class="card-actions justify-end">
+              <button class="btn btn-primary">閱讀更多</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 文章卡片 3 -->
+        <div class="card bg-base-200 shadow-xl">
+          <div class="card-body">
+            <h2 class="card-title">推薦文章</h2>
+            <p>這是第三篇測試文章的描述...</p>
+            <div class="card-actions justify-end">
+              <button class="btn btn-primary">閱讀更多</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- 頁尾 -->
+    <footer class="footer footer-center p-4 bg-base-200 text-base-content">
+      <div>
+        <p>Copyright © 2024 - All rights reserved</p>
+      </div>
+    </footer>
+  </div>
+</DefaultLayout>
