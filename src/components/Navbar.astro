@@ -1,4 +1,32 @@
-<!-- 導航欄 -->
+---
+import GithubIcon from "../assets/icon-github.svg";
+import RSSIcon from "../assets/icon-rss.svg";
+import SunIcon from "../assets/icon-sun.svg";
+import MoonIcon from "../assets/icon-moon-stars.svg";
+import MenuIcon from "../assets/icon-menu.svg";
+
+const navLinks = [
+  { href: "/posts", label: "文章列表" },
+  { href: "/categories", label: "分類" },
+  { href: "/about", label: "關於我" },
+];
+
+const actionButtons = [
+  {
+    href: "https://github.com/yourusername",
+    label: "GitHub",
+    external: true,
+    icon: GithubIcon,
+  },
+  {
+    href: "/rss.xml",
+    label: "RSS",
+    external: false,
+    icon: RSSIcon,
+  },
+];
+---
+
 <div class="drawer">
   <input id="my-drawer" type="checkbox" class="drawer-toggle" />
   <div class="drawer-content">
@@ -11,39 +39,59 @@
           </div>
           <div class="navbar-center hidden md:flex">
             <ul class="menu menu-horizontal px-1">
-              <li><a href="/posts">文章列表</a></li>
-              <li><a href="/categories">分類</a></li>
-              <li><a href="/about">關於我</a></li>
+              {
+                navLinks.map((link) => (
+                  <li>
+                    <a href={link.href}>{link.label}</a>
+                  </li>
+                ))
+              }
             </ul>
           </div>
           <div class="navbar-end">
             <div class="flex gap-2 hidden md:flex">
-              <a
-                href="https://github.com/yourusername"
-                target="_blank"
-                class="btn btn-ghost">Github</a
+              {
+                actionButtons.map((button) => (
+                  <a
+                    href={button.href}
+                    target={button.external ? "_blank" : undefined}
+                    class="btn btn-ghost btn-square"
+                    aria-label={button.label}
+                    title={button.label}
+                  >
+                    <button.icon width={20} height={20} />
+                  </a>
+                ))
+              }
+              <button
+                id="theme-toggle"
+                class="btn btn-ghost btn-square group"
+                aria-label="主題切換"
+                title="主題切換"
               >
-              <a href="/rss.xml" class="btn btn-ghost">RSS</a>
-              <button id="theme-toggle" class="btn btn-ghost">深淺色切換</button
-              >
+                <span class="light-icon group-hover:saturate-150">
+                  <SunIcon
+                    width={20}
+                    height={20}
+                    class="sun-icon"
+                    fill="#F9A825"
+                  />
+                </span>
+                <span class="dark-icon hidden group-hover:saturate-150">
+                  <MoonIcon
+                    width={20}
+                    height={20}
+                    class="moon-icon"
+                    fill="#F9A825"
+                  />
+                </span>
+              </button>
             </div>
             <label
               for="my-drawer"
               class="btn btn-ghost drawer-button md:hidden"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M4 6h16M4 12h8m-8 6h16"></path>
-              </svg>
+              <MenuIcon class="h-5 w-5" />
             </label>
           </div>
         </div>
@@ -51,55 +99,145 @@
     </div>
   </div>
 
-  <!-- 側邊抽屜內容 -->
+  <!-- 行動版 Menu -->
   <div class="drawer-side z-50">
     <label for="my-drawer" aria-label="close sidebar" class="drawer-overlay"
     ></label>
     <ul class="menu p-4 w-80 min-h-full bg-base-200 text-base-content text-lg">
-      <li><a href="/posts" class="text-[18px]">文章列表</a></li>
-      <li><a href="/categories" class="text-[18px]">分類</a></li>
-      <li><a href="/about" class="text-[18px]">關於我</a></li>
+      {
+        navLinks.map((link) => (
+          <li>
+            <a href={link.href} class="text-[18px]">
+              {link.label}
+            </a>
+          </li>
+        ))
+      }
 
       <div class="divider my-1"></div>
 
+      {
+        actionButtons.map((button) => (
+          <li>
+            <a
+              href={button.href}
+              target={button.external ? "_blank" : undefined}
+              class="text-[18px] flex items-center gap-4"
+            >
+              <button.icon width={20} height={20} />
+              {button.label}
+            </a>
+          </li>
+        ))
+      }
       <li>
         <a
-          href="https://github.com/yourusername"
-          target="_blank"
-          class="text-[18px]">Github</a
+          id="theme-toggle-mobile"
+          class="text-[18px] flex items-center gap-4 group"
         >
+          <span class="light-icon-mobile group-hover:saturate-150">
+            <SunIcon width={20} height={20} class="sun-icon" fill="#F9A825" />
+          </span>
+          <span class="dark-icon-mobile hidden group-hover:saturate-150">
+            <MoonIcon width={20} height={20} class="moon-icon" fill="#F9A825" />
+          </span>
+          切換主題
+        </a>
       </li>
-      <li><a href="/rss.xml" class="text-[18px]">RSS</a></li>
-      <li><a id="theme-toggle-mobile" class="text-[18px]">深淺色切換</a></li>
     </ul>
   </div>
 </div>
 
 <script>
-  // 主題切換功能
   document.addEventListener("DOMContentLoaded", () => {
     const themeToggle = document.getElementById("theme-toggle");
     const themeToggleMobile = document.getElementById("theme-toggle-mobile");
+    const lightIcon = document.querySelector(".light-icon");
+    const darkIcon = document.querySelector(".dark-icon");
+    const lightIconMobile = document.querySelector(".light-icon-mobile");
+    const darkIconMobile = document.querySelector(".dark-icon-mobile");
 
-    // 從 localStorage 獲取主題設定，或使用系統偏好
+    // 從 localStorage 獲取主題設定或使用系統偏好
     const savedTheme =
       localStorage.getItem("theme") ||
       (window.matchMedia("(prefers-color-scheme: dark)").matches
         ? "dark"
         : "light");
+
     document.documentElement.setAttribute("data-theme", savedTheme);
 
-    // 切換主題的函數
-    const toggleTheme = () => {
+    // 根據當前主題顯示對應的 icon
+    if (savedTheme === "dark") {
+      if (lightIcon) {
+        lightIcon.classList.add("hidden");
+      }
+      if (darkIcon) {
+        darkIcon.classList.remove("hidden");
+      }
+      if (lightIconMobile) {
+        lightIconMobile.classList.add("hidden");
+      }
+      if (darkIconMobile) {
+        darkIconMobile.classList.remove("hidden");
+      }
+    } else {
+      if (darkIcon) {
+        darkIcon.classList.add("hidden");
+      }
+      if (lightIcon) {
+        lightIcon.classList.remove("hidden");
+      }
+      if (darkIconMobile) {
+        darkIconMobile.classList.add("hidden");
+      }
+      if (lightIconMobile) {
+        lightIconMobile.classList.remove("hidden");
+      }
+    }
+
+    function toggleTheme() {
       const currentTheme = document.documentElement.getAttribute("data-theme");
       const newTheme = currentTheme === "dark" ? "light" : "dark";
+
       document.documentElement.setAttribute("data-theme", newTheme);
       localStorage.setItem("theme", newTheme);
-    };
 
-    // 為按鈕綁定事件
-    if (themeToggle) themeToggle.addEventListener("click", toggleTheme);
-    if (themeToggleMobile)
+      // 切換 icon
+      if (newTheme === "dark") {
+        if (lightIcon) {
+          lightIcon.classList.add("hidden");
+        }
+        if (darkIcon) {
+          darkIcon.classList.remove("hidden");
+        }
+        if (lightIconMobile) {
+          lightIconMobile.classList.add("hidden");
+        }
+        if (darkIconMobile) {
+          darkIconMobile.classList.remove("hidden");
+        }
+      } else {
+        if (darkIcon) {
+          darkIcon.classList.add("hidden");
+        }
+        if (lightIcon) {
+          lightIcon.classList.remove("hidden");
+        }
+        if (darkIconMobile) {
+          darkIconMobile.classList.add("hidden");
+        }
+        if (lightIconMobile) {
+          lightIconMobile.classList.remove("hidden");
+        }
+      }
+    }
+
+    // 綁定事件
+    if (themeToggle) {
+      themeToggle.addEventListener("click", toggleTheme);
+    }
+    if (themeToggleMobile) {
       themeToggleMobile.addEventListener("click", toggleTheme);
+    }
   });
 </script>
