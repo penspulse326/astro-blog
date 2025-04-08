@@ -1,0 +1,105 @@
+<!-- 導航欄 -->
+<div class="drawer">
+  <input id="my-drawer" type="checkbox" class="drawer-toggle" />
+  <div class="drawer-content">
+    <!-- 頁面內容 -->
+    <div class="w-full bg-base-200">
+      <div class="container mx-auto">
+        <div class="navbar">
+          <div class="navbar-start">
+            <a href="/" class="btn btn-ghost text-xl">Pen's pulse</a>
+          </div>
+          <div class="navbar-center hidden md:flex">
+            <ul class="menu menu-horizontal px-1">
+              <li><a href="/posts">文章列表</a></li>
+              <li><a href="/categories">分類</a></li>
+              <li><a href="/about">關於我</a></li>
+            </ul>
+          </div>
+          <div class="navbar-end">
+            <div class="flex gap-2 hidden md:flex">
+              <a
+                href="https://github.com/yourusername"
+                target="_blank"
+                class="btn btn-ghost">Github</a
+              >
+              <a href="/rss.xml" class="btn btn-ghost">RSS</a>
+              <button id="theme-toggle" class="btn btn-ghost">深淺色切換</button
+              >
+            </div>
+            <label
+              for="my-drawer"
+              class="btn btn-ghost drawer-button md:hidden"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h8m-8 6h16"></path>
+              </svg>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 側邊抽屜內容 -->
+  <div class="drawer-side z-50">
+    <label for="my-drawer" aria-label="close sidebar" class="drawer-overlay"
+    ></label>
+    <ul class="menu p-4 w-80 min-h-full bg-base-200 text-base-content text-lg">
+      <li><a href="/posts" class="text-[18px]">文章列表</a></li>
+      <li><a href="/categories" class="text-[18px]">分類</a></li>
+      <li><a href="/about" class="text-[18px]">關於我</a></li>
+
+      <div class="divider my-1"></div>
+
+      <li>
+        <a
+          href="https://github.com/yourusername"
+          target="_blank"
+          class="text-[18px]">Github</a
+        >
+      </li>
+      <li><a href="/rss.xml" class="text-[18px]">RSS</a></li>
+      <li><a id="theme-toggle-mobile" class="text-[18px]">深淺色切換</a></li>
+    </ul>
+  </div>
+</div>
+
+<script>
+  // 主題切換功能
+  document.addEventListener("DOMContentLoaded", () => {
+    const themeToggle = document.getElementById("theme-toggle");
+    const themeToggleMobile = document.getElementById("theme-toggle-mobile");
+
+    // 從 localStorage 獲取主題設定，或使用系統偏好
+    const savedTheme =
+      localStorage.getItem("theme") ||
+      (window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? "dark"
+        : "light");
+    document.documentElement.setAttribute("data-theme", savedTheme);
+
+    // 切換主題的函數
+    const toggleTheme = () => {
+      const currentTheme = document.documentElement.getAttribute("data-theme");
+      const newTheme = currentTheme === "dark" ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", newTheme);
+      localStorage.setItem("theme", newTheme);
+    };
+
+    // 為按鈕綁定事件
+    if (themeToggle) themeToggle.addEventListener("click", toggleTheme);
+    if (themeToggleMobile)
+      themeToggleMobile.addEventListener("click", toggleTheme);
+  });
+</script>
