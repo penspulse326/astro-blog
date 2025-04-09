@@ -81,24 +81,23 @@ const skills = [
 
 <DefaultLayout>
   <div class="min-h-screen bg-base-100">
-    <!-- 主要內容區 -->
     <main class="container mx-auto px-4 py-8">
-      <!-- 上半部：S型便當盒佈局 -->
       <section class="mb-16">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <!-- 個人簡介 (占3欄) -->
+          <!-- 個人簡介 -->
           <div
-            class="bg-base-200 p-6 md:px-12 h-[300px] rounded-xl shadow-md md:col-span-3 relative overflow-hidden"
+            class="bg-base-200 p-6 md:px-24 h-[300px] rounded-xl shadow-md md:col-span-3 relative overflow-hidden"
           >
             <div
               class="flex flex-col md:flex-row gap-6 relative z-10 md:items-center"
             >
               <div class="flex-grow">
                 <h1 class="text-3xl font-bold mb-2">Shin</h1>
-                <p class="mb-3 md:max-w-[70%]">
-                  我是 Shin，前端小白一枚，喜歡鑽研網頁開發技術，目前專注於
-                  React
-                  和相關生態系統的學習。在自學的過程中，透過手刻網格系統和參與各種實戰項目來提升自己的技能。
+                <p class="mb-3 text-sm md:text-base">
+                  不小心就踏進前端這條不歸路了。<br />
+                  不知道自己可以走多久，但因為不知道，<br />
+                  所以想要繼續走，看看能走到多遠的地方。<br />
+                  <br />
                 </p>
                 <a href="mailto:penspulse@gmail.com" class="btn btn-primary">
                   <svg
@@ -147,7 +146,7 @@ const skills = [
 
           <!-- 技能列表 (占2欄) -->
           <div
-            class="bg-base-200 p-6 pb-10 md:px-12 md:pb-6 rounded-xl shadow-md md:col-span-2 h-full"
+            class="bg-base-200 p-6 pb-10 rounded-xl shadow-md md:col-span-2 h-full"
           >
             <h2 class="text-2xl font-bold mb-5">專業技能</h2>
 
@@ -183,9 +182,7 @@ const skills = [
           </div>
 
           <!-- 學習經歷 (占1欄，2列高) -->
-          <div
-            class="bg-base-200 p-6 pb-10 md:px-12 md:pb-6 rounded-xl shadow-md md:row-span-2"
-          >
+          <div class="bg-base-200 p-6 pb-10 rounded-xl shadow-md md:row-span-2">
             <h2 class="text-2xl font-bold mb-4">學習經歷</h2>
             <div class="space-y-6">
               <div class="relative pl-6 border-l-2 border-primary">
@@ -215,9 +212,7 @@ const skills = [
           </div>
 
           <!-- 專案經驗 (占1欄) -->
-          <div
-            class="bg-base-200 p-6 pb-10 md:px-12 md:pb-6 rounded-xl shadow-md"
-          >
+          <div class="bg-base-200 p-6 pb-10 rounded-xl shadow-md">
             <h2 class="text-2xl font-bold mb-4">專案經驗</h2>
             <div class="space-y-3">
               {
@@ -237,9 +232,7 @@ const skills = [
           </div>
 
           <!-- 文章推薦 (占1欄) -->
-          <div
-            class="bg-base-200 p-6 pb-10 md:px-12 md:pb-6 rounded-xl shadow-md"
-          >
+          <div class="bg-base-200 p-6 pb-10 rounded-xl shadow-md">
             <h2 class="text-2xl font-bold mb-4">推薦閱讀</h2>
             <div class="space-y-3">
               <a
@@ -263,7 +256,7 @@ const skills = [
 
           <!-- 聯絡資訊 (占3欄) -->
           <div
-            class="bg-base-200 p-6 pb-10 md:px-12 md:pb-6 rounded-xl shadow-md md:col-span-3"
+            class="bg-base-200 p-6 md:px-20 md:py-10 rounded-xl shadow-md md:col-span-3"
           >
             <div class="flex flex-col gap-4">
               <h2 class="text-2xl font-bold">最新文章</h2>
@@ -272,7 +265,7 @@ const skills = [
                   recentPosts.map((post) => (
                     <div class="py-6 border-b border-gray-200">
                       <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
-                        <div>
+                        <div class="flex-grow">
                           <div>
                             <h3 class="mb-1 text-xl font-bold hover:text-primary transition-colors">
                               <a href={post.url}>{post.title}</a>
@@ -285,7 +278,7 @@ const skills = [
                           </div>
 
                           <p class="mt-3">{post.description}</p>
-                          <div class="mt-4">
+                          <div class="flex justify-end mt-4">
                             <a href={post.url} class="btn btn-sm btn-primary">
                               閱讀更多
                             </a>
