@@ -3,7 +3,7 @@ title: "變數宣告"
 description: "JavaScript 的變數宣告問題"
 date: 2023-08-30 13:54:38
 keywords: [JavaScript, 變數, 作用域, variable, scope]
-slug: variable-declare
+slug: js-variable-declare
 ---
 
 宣告是為了告訴電腦需要**一塊記憶體空間**來存放資料，類似**置物櫃**的概念，  

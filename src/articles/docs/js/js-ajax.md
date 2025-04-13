@@ -3,7 +3,7 @@ title: "網路請求與非同步"
 description: "JavaScript 中的網路請求"
 date: 2023-09-19 14:43:08
 keywords: [JavaScript, 程式語言, API, 網路請求, AJAX]
-slug: network-request-ajax-api
+slug: js-ajax
 ---
 
 一般程式語言都是逐行執行的，因此每一個操作都要等待上一個操作結束，  

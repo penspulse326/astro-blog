@@ -3,7 +3,7 @@ title: "函式類型"
 description: "JavaScript 的函式類型"
 date: 2023-09-08 13:51:24
 keywords: [JavaScript, 程式語言, 函式]
-slug: function-types
+slug: js-function
 ---
 
 有句話說「在 JS 裡面所有東西都是物件」，  

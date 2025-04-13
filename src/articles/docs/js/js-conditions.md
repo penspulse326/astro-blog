@@ -12,7 +12,7 @@ keywords:
     ternary-operator,
     short-circuit-evaluation,
   ]
-slug: conditionals
+slug: js-conditions
 ---
 
 條件判斷是控制程式運行流程的關鍵，寫得好就上天堂，寫不好就波動拳。

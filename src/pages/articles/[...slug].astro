@@ -1,0 +1,167 @@
+---
+import DefaultLayout from "../../layouts/DefaultLayout.astro";
+
+// 定義文章型別
+export interface ArticleData {
+  frontmatter: {
+    title?: string;
+    date?: string;
+    description?: string;
+    keywords?: string[];
+    slug?: string;
+    [key: string]: any;
+  };
+  file: string;
+  url: string;
+  Content: any;
+}
+
+// 為動態路由生成靜態路徑
+export async function getStaticPaths() {
+  // 匯入所有文章
+  const postsImports = await import.meta.glob<ArticleData>(
+    "../../articles/posts/*.md",
+    {
+      eager: true,
+    }
+  );
+  const docsImports = await import.meta.glob<ArticleData>(
+    "../../articles/docs/**/*.md",
+    {
+      eager: true,
+    }
+  );
+
+  // 合併所有文章
+  const allArticles = { ...postsImports, ...docsImports };
+
+  // 為每篇文章生成路徑
+  return Object.values(allArticles).map((article) => {
+    // 使用 frontmatter 中的 slug，如果存在的話
+    if (article.frontmatter.slug) {
+      return {
+        params: { slug: article.frontmatter.slug },
+        props: { article },
+      };
+    }
+
+    // 否則使用檔案名（不含路徑和副檔名）作為 slug
+    const fileName = article.file.split("/").pop() || "";
+    const fileNameWithoutExt = fileName.replace(/\.md$/, "");
+
+    return {
+      params: { slug: fileNameWithoutExt },
+      props: { article },
+    };
+  });
+}
+
+// 從 props 中獲取文章數據
+const { article } = Astro.props;
+const { Content, frontmatter } = article;
+const publishDate = frontmatter.date ? new Date(frontmatter.date) : null;
+
+// 計算閱讀時間 (假設每分鐘閱讀 200 個字)
+const calculateReadingTime = (content: string) => {
+  const wordCount = content.split(/\s+/).length;
+  const readingTime = Math.ceil(wordCount / 200);
+  return readingTime;
+};
+---
+
+<DefaultLayout>
+  <article
+    class="container mx-auto px-4 py-8 prose prose-lg prose-slate dark:prose-invert"
+  >
+    <header class="mb-8 not-prose">
+      <h1 class="text-4xl font-bold mb-4">{frontmatter.title}</h1>
+      <div class="flex flex-wrap gap-x-4 gap-y-2 text-sm text-base-content/70">
+        {
+          publishDate && (
+            <time datetime={publishDate.toISOString()}>
+              發布於{" "}
+              {publishDate.toLocaleDateString("zh-TW", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}
+            </time>
+          )
+        }
+
+        {
+          frontmatter.keywords && frontmatter.keywords.length > 0 && (
+            <div class="flex flex-wrap gap-2 mt-3 w-full">
+              {frontmatter.keywords.map((keyword: string) => (
+                <span class="badge badge-outline">{keyword}</span>
+              ))}
+            </div>
+          )
+        }
+      </div>
+
+      {
+        frontmatter.description && (
+          <p class="mt-4 text-lg text-base-content/80 italic">
+            {frontmatter.description}
+          </p>
+        )
+      }
+    </header>
+
+    <div class="article-content">
+      <Content />
+    </div>
+
+    <footer class="mt-16 pt-8 border-t not-prose">
+      <div class="flex justify-between items-center">
+        <a href="/articles" class="btn btn-sm btn-outline"> ← 返回文章列表 </a>
+        <button
+          onclick="window.scrollTo({top: 0, behavior: 'smooth'})"
+          class="btn btn-sm btn-circle"
+          aria-label="回到頂部"
+        >
+          ↑
+        </button>
+      </div>
+    </footer>
+  </article>
+</DefaultLayout>
+
+<style>
+  /* 增強文章內容樣式 */
+  :global(.article-content h2) {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+  }
+
+  :global(.article-content h3) {
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+  }
+
+  :global(.article-content a) {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 2px;
+    text-decoration-color: rgba(var(--color-primary), 0.5);
+  }
+
+  :global(.article-content a:hover) {
+    text-decoration-color: rgba(var(--color-primary), 0.8);
+  }
+
+  :global(.article-content code) {
+    background-color: rgba(var(--color-base-content), 0.1);
+    padding: 0.2em 0.4em;
+    border-radius: 0.25rem;
+    font-size: 0.875em;
+  }
+
+  :global(.article-content pre code) {
+    background-color: transparent;
+    padding: 0;
+  }
+</style>

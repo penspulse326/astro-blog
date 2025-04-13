@@ -3,7 +3,7 @@ title: "陣列與物件"
 description: "JavaScript 的物件型別簡介"
 date: 2023-09-06 10:19:47
 keywords: [JavaScript, 陣列, 物件, array, object, shallow-copy]
-slug: array-and-object
+slug: js-array-and-object
 ---
 
 number、string、null 等等是為「**原始型別**」（primitive type），內容通常是純值。
