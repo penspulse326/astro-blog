@@ -8,3 +8,40 @@
   --breakpoint-xl: 60rem;  /* 960px */
   --breakpoint-2xl: 60rem; /* 960px */
 }
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap');
+
+* {
+  font-family: "Noto Sans TC", sans-serif;
+  font-optical-sizing: auto;
+
+}
+
+.grid-paper {
+  background-image: 
+    linear-gradient(to right, rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+  background-size: 8px 8px;
+}
+
+[data-theme="dark"] .grid-paper {
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+}
+
+.section-title {
+  @apply text-2xl font-bold mb-6 text-base-content;
+}
+
+.post-card {
+  @apply mb-6 p-4 hover:bg-base-200 transition-colors duration-200 rounded-lg;
+}
+
+.post-title {
+  @apply text-xl font-semibold mb-2 text-base-content;
+}
+
+.post-meta {
+  @apply text-sm text-base-content/70;
+}
