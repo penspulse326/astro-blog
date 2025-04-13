@@ -134,6 +134,7 @@ const calculateReadingTime = (content: string) => {
     margin-top: 2rem;
     margin-bottom: 1rem;
     font-weight: 600;
+    font-size: 1.75rem;
   }
 
   :global(.article-content h3) {
@@ -154,14 +155,33 @@ const calculateReadingTime = (content: string) => {
   }
 
   :global(.article-content code) {
-    background-color: rgba(var(--color-base-content), 0.1);
+    background-color: #f0f0f0;
+    color: #e53e3e;
     padding: 0.2em 0.4em;
     border-radius: 0.25rem;
     font-size: 0.875em;
+    font-family: "JetBrains Mono", monospace;
+    font-weight: bold;
+  }
+
+  :global(.article-content pre) {
+    margin-top: 12px;
+    margin-bottom: 12px;
+    border-radius: 0.5rem;
+    overflow: hidden;
   }
 
   :global(.article-content pre code) {
     background-color: transparent;
-    padding: 0;
+    color: inherit;
+    padding: 16px;
+    display: block;
+    font-family: "JetBrains Mono", monospace;
+    font-weight: normal;
+  }
+
+  :global(.article-content hr) {
+    border: none;
+    border-top: 1px solid rgba(100, 100, 100, 0.2);
   }
 </style>

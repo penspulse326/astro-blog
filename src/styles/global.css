@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap');
 
 @import "tailwindcss";
 @plugin "daisyui";
@@ -11,17 +12,21 @@
   --breakpoint-2xl: 50rem; /* 800px */
 }
 
+html {
+  overflow-y: scroll;
+}
 
-* {
+body {
   font-family: "Noto Sans TC", sans-serif;
   font-optical-sizing: auto;
+  min-height: 101vh; /* Forces a scrollbar to appear */
 }
 
 .grid-paper {
   background-image: 
     linear-gradient(to right, rgba(150, 150, 150, 0.1) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(150, 150, 150, 0.1) 1px, transparent 1px);
-  background-size: 12px 12px;
+  background-size: 40px 40px;
 }
 
 [data-theme="dark"] .grid-paper {
