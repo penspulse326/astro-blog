@@ -41,12 +41,18 @@ const articles: Article[] = allArticles.map((article) => {
     ? new Date(article.frontmatter.date)
     : new Date();
 
+  // 構建 URL：優先使用 frontmatter 中的 slug，否則使用文件名
+  const slug =
+    article.frontmatter?.slug ||
+    article.file.split("/").pop()?.replace(".md", "");
+  const url = `/articles/${slug}`;
+
   return {
     title:
       article.frontmatter?.title ||
       article.file.split("/").pop()?.replace(".md", "") ||
       "Untitled",
-    url: article.url,
+    url: url,
     date: date,
     year: date.getFullYear(),
   };
@@ -84,7 +90,7 @@ const years = Object.keys(articlesByYear)
               <li class="border-l-4 border-primary pl-4 py-0.5 hover:bg-base-200 transition-colors">
                 <a
                   href={article.url}
-                  class="flex flex-col sm:flex-row sm:justify-between"
+                  class="link link-hover flex flex-col sm:flex-row sm:justify-between"
                 >
                   <span class="text-base font-medium">{article.title}</span>
                   <span class="text-sm text-base-content/70">

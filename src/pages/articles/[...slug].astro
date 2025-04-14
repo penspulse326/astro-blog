@@ -7,7 +7,7 @@ export interface ArticleData {
     title?: string;
     date?: string;
     description?: string;
-    keywords?: string[];
+    tags?: string[];
     slug?: string;
     [key: string]: any;
   };
@@ -76,37 +76,32 @@ const calculateReadingTime = (content: string) => {
     <header class="mb-8 not-prose">
       <h1 class="text-4xl font-bold mb-4">{frontmatter.title}</h1>
       <div class="flex flex-wrap gap-x-4 gap-y-2 text-sm text-base-content/70">
+        發布於
         {
           publishDate && (
             <time datetime={publishDate.toISOString()}>
-              發布於{" "}
-              {publishDate.toLocaleDateString("zh-TW", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })}
+              {publishDate
+                .toLocaleDateString("zh-TW", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })
+                .replace(/(\d+)/g, " $1 ")
+                .trim()}
             </time>
           )
         }
 
         {
-          frontmatter.keywords && frontmatter.keywords.length > 0 && (
+          frontmatter.tags && frontmatter.tags.length > 0 && (
             <div class="flex flex-wrap gap-2 mt-3 w-full">
-              {frontmatter.keywords.map((keyword: string) => (
+              {frontmatter.tags.map((keyword: string) => (
                 <span class="badge badge-outline">{keyword}</span>
               ))}
             </div>
           )
         }
       </div>
-
-      {
-        frontmatter.description && (
-          <p class="mt-4 text-lg text-base-content/80 italic">
-            {frontmatter.description}
-          </p>
-        )
-      }
     </header>
 
     <div class="article-content">
