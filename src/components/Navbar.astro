@@ -66,21 +66,25 @@ const actionButtons = [
                   </a>
                 ))
               }
-              <label class="btn btn-ghost btn-square swap swap-rotate">
-                <input type="checkbox" class="theme-controller" value="light" />
+              <button
+                id="theme-toggle"
+                class="btn btn-ghost btn-square group"
+                aria-label="主題切換"
+                title="主題切換"
+              >
                 <SunIcon
                   width={20}
                   height={20}
-                  class="swap-on"
+                  class="sun-icon light-icon"
                   fill="#F9A825"
                 />
                 <MoonIcon
                   width={20}
                   height={20}
-                  class="swap-off"
+                  class="moon-icon dark-icon hidden"
                   fill="#F9A825"
                 />
-              </label>
+              </button>
             </div>
             <label
               for="my-drawer"
@@ -126,23 +130,73 @@ const actionButtons = [
         ))
       }
       <li>
-        <label class="flex items-center gap-4 cursor-pointer text-[18px]">
-          <div class="swap swap-rotate">
-            <input
-              type="checkbox"
-              class="theme-controller swap-core"
-              value="light"
-            />
-            <SunIcon width={20} height={20} class="swap-on" fill="#F9A825" />
-            <MoonIcon width={20} height={20} class="swap-off" fill="#F9A825" />
-          </div>
+        <a id="theme-toggle-mobile" class="text-[18px] flex items-center gap-4">
+          <SunIcon
+            width={20}
+            height={20}
+            class="sun-icon light-icon-mobile"
+            fill="#F9A825"
+          />
+          <MoonIcon
+            width={20}
+            height={20}
+            class="moon-icon dark-icon-mobile hidden"
+            fill="#F9A825"
+          />
           切換主題
-        </label>
+        </a>
       </li>
     </ul>
   </div>
 </div>
 
 <script>
-  // DaisyUI 主題控制器會自動處理主題切換，不需要額外的 JavaScript
+  document.addEventListener("DOMContentLoaded", () => {
+    const themeToggle = document.getElementById("theme-toggle");
+    const themeToggleMobile = document.getElementById("theme-toggle-mobile");
+    const lightIcons = document.querySelectorAll(
+      ".light-icon, .light-icon-mobile"
+    );
+    const darkIcons = document.querySelectorAll(
+      ".dark-icon, .dark-icon-mobile"
+    );
+
+    // 從 localStorage 獲取主題設定或使用系統偏好
+    const savedTheme =
+      localStorage.getItem("theme") ||
+      (window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? "dark"
+        : "light");
+
+    document.documentElement.setAttribute("data-theme", savedTheme);
+
+    // 根據當前主題顯示對應的 icon
+    function updateThemeIcons(theme: string) {
+      lightIcons.forEach((icon) =>
+        icon.classList.toggle("hidden", theme === "dark")
+      );
+      darkIcons.forEach((icon) =>
+        icon.classList.toggle("hidden", theme === "light")
+      );
+    }
+
+    updateThemeIcons(savedTheme);
+
+    function toggleTheme() {
+      const currentTheme = document.documentElement.getAttribute("data-theme");
+      const newTheme = currentTheme === "dark" ? "light" : "dark";
+
+      document.documentElement.setAttribute("data-theme", newTheme);
+      localStorage.setItem("theme", newTheme);
+      updateThemeIcons(newTheme);
+    }
+
+    // 綁定事件
+    if (themeToggle) {
+      themeToggle.addEventListener("click", toggleTheme);
+    }
+    if (themeToggleMobile) {
+      themeToggleMobile.addEventListener("click", toggleTheme);
+    }
+  });
 </script>
