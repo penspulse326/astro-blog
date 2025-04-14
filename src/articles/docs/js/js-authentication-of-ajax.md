@@ -3,6 +3,7 @@ title: "驗證機制"
 description: "網路請求中的驗證機制"
 date: 2023-10-11 10:43:08
 keywords: [JavaScript, 程式語言, 驗證機制, session, cookie, JWT, 驗證機制]
+tags: ["筆記", "JavaScript"]
 slug: js-authentication-of-ajax
 ---
 

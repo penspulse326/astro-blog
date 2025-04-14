@@ -12,6 +12,7 @@ keywords:
     ternary-operator,
     short-circuit-evaluation,
   ]
+tags: ["筆記", "JavaScript"]
 slug: js-conditions
 ---
 

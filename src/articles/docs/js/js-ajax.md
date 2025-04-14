@@ -3,6 +3,7 @@ title: "網路請求與非同步"
 description: "JavaScript 中的網路請求"
 date: 2023-09-19 14:43:08
 keywords: [JavaScript, 程式語言, API, 網路請求, AJAX]
+tags: ["筆記", "JavaScript"]
 slug: js-ajax
 ---
 

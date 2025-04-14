@@ -3,6 +3,7 @@ title: "Promise"
 description: "Promise 與 async 的基本概念"
 date: 2023-11-09 12:43:08
 keywords: [JavaScript, 程式語言, Promise, AJAX, async, 非同步]
+tags: ["筆記", "JavaScript"]
 slug: js-promise
 ---
 

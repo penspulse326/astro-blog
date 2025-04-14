@@ -3,6 +3,7 @@ title: "提升"
 description: "提升的觀念"
 date: 2024-04-15 11:23:00
 keywords: [JavaScript, 程式語言, hoisting, 提升, 表達式, 陳述式]
+tags: ["筆記", "JavaScript"]
 slug: js-hoisting
 ---
 

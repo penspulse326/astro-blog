@@ -3,6 +3,7 @@ title: "閉包"
 description: "閉包的觀念"
 date: 2024-06-02 14:13:00
 keywords: [JavaScript, 程式語言, closure, 閉包, lexical scope, 靜態作用域]
+tags: ["筆記", "JavaScript"]
 slug: js-closure
 ---
 

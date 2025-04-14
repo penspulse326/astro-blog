@@ -3,6 +3,7 @@ title: "物件方法"
 description: "JavaScript 中的物件方法"
 date: 2023-09-14 16:30:24
 keywords: [JavaScript, 程式語言, 物件, 物件方法]
+tags: ["筆記", "JavaScript"]
 slug: js-object-method
 ---
 

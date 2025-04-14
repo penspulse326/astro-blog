@@ -3,6 +3,7 @@ title: "變數宣告"
 description: "JavaScript 的變數宣告問題"
 date: 2023-08-30 13:54:38
 keywords: [JavaScript, 變數, 作用域, variable, scope]
+tags: ["筆記", "JavaScript"]
 slug: js-variable-declare
 ---
 
