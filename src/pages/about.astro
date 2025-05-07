@@ -1,0 +1,278 @@
+---
+// 假設文章數據，實際應該從 Astro 的 content collections 中讀取
+const recentPosts = [
+  {
+    title: "我用 Hexo 寫部落格的第一篇文章",
+    date: "2022/09/02",
+    description:
+      "其實之前就有想過要寫部落格來記錄自己的學習歷程，不過就是...懶，因為下班後總會感覺一天的精氣神都耗盡了 XD",
+    url: "/blog/2022/09/02/first-post",
+    readingTime: "2 分鐘",
+  },
+  {
+    title: "[日常] 火箭日記-第 2 週",
+    date: "2023/08/14",
+    description:
+      "時間來到第二週，這週的作業雖然上週四中午就公布了，而當天我正在研讀 google 登入實作的教材...",
+    url: "/blog/rocket-week2",
+    readingTime: "3 分鐘",
+  },
+  {
+    title: "網格系統概念",
+    date: "2023/10/29",
+    description:
+      "在 2022 年我決定以前端工程師作為轉職目標後，就開始了這段漫漫長路。我一開始選用的教材是 Huli 大大開設的 Lidemy 網站課程...",
+    url: "/docs/css/css-grid-system",
+    readingTime: "2 分鐘",
+  },
+];
+
+// 專案展示數據
+const projects = [
+  {
+    title: "Todo List",
+    description: "使用 JavaScript 實現的簡易待辦事項管理應用",
+    tags: ["JavaScript", "HTML", "CSS"],
+    url: "#",
+  },
+  {
+    title: "網格系統",
+    description: "手刻網格系統實現響應式佈局",
+    tags: ["SCSS", "RWD"],
+    url: "#",
+  },
+  {
+    title: "電商網站",
+    description: "使用 React 開發的電商平台前端介面",
+    tags: ["React", "Redux", "Tailwind"],
+    url: "#",
+  },
+];
+
+// 技能數據
+const skills = [
+  {
+    category: "前端開發",
+    items: [
+      { name: "JavaScript/ES6+", icon: "code-slash" },
+      { name: "React", icon: "filetype-jsx" },
+      { name: "HTML5/CSS3", icon: "filetype-html" },
+      { name: "Tailwind CSS", icon: "palette" },
+    ],
+  },
+  {
+    category: "後端開發",
+    items: [
+      { name: "Node.js", icon: "server" },
+      { name: "Express", icon: "hdd-rack" },
+    ],
+  },
+  {
+    category: "開發工具",
+    items: [
+      { name: "Git/GitHub", icon: "git" },
+      { name: "Webpack", icon: "box" },
+    ],
+  },
+];
+---
+
+<main class="container mx-auto px-4 py-8">
+  <section class="mb-16">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <!-- 個人簡介 -->
+      <div
+        class="bg-base-200 p-6 md:px-24 h-[300px] rounded-xl shadow-md md:col-span-3 relative overflow-hidden"
+      >
+        <div
+          class="flex flex-col md:flex-row gap-6 relative z-10 md:items-center"
+        >
+          <div class="flex-grow">
+            <h1 class="text-3xl font-bold mb-2">Shin</h1>
+            <p class="mb-3 text-sm md:text-base">
+              不小心就踏進前端這條不歸路了。<br />
+              不知道自己可以走多久，但因為不知道，<br />
+              所以想要繼續走，看看能走到多遠的地方。<br />
+              <br />
+            </p>
+            <a href="mailto:penspulse@gmail.com" class="btn btn-primary">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="w-5 h-5"
+              >
+                <path
+                  d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+                ></path>
+                <polyline points="22,6 12,13 2,6"></polyline>
+              </svg>
+              聯絡我
+            </a>
+          </div>
+          <div class="hidden md:block flex-shrink-0">
+            <div class="avatar">
+              <div class="w-[250px] h-[250px] rounded-full">
+                <img
+                  src="/src/assets/profile.jpg"
+                  alt="個人頭像"
+                  class="w-full h-full object-cover"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- 行動版背景大頭貼 -->
+        <div class="absolute -bottom-4 -right-4 opacity-20 md:hidden">
+          <div class="w-[250px] h-[250px] rounded-full overflow-hidden">
+            <img
+              src="/src/assets/profile.jpg"
+              alt="背景頭像"
+              class="w-full h-full object-cover"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- 技能列表 (占2欄) -->
+      <div
+        class="bg-base-200 p-6 pb-10 rounded-xl shadow-md md:col-span-2 h-full"
+      >
+        <h2 class="text-2xl font-bold mb-5">專業技能</h2>
+
+        <div class="flex flex-col md:grid grid-cols-3 gap-6">
+          {
+            skills.map((category) => (
+              <div class="flex flex-col gap-2">
+                <h3 class="text-lg font-semibold mb-3 border-l-4 border-primary pl-3">
+                  {category.category}
+                </h3>
+                <ul class="space-y-2 ml-2">
+                  {category.items.map((skill) => (
+                    <li class="flex items-center gap-2">
+                      <span class="text-primary">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="14"
+                          height="14"
+                          fill="currentColor"
+                          viewBox="0 0 16 16"
+                        >
+                          <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
+                        </svg>
+                      </span>
+                      <span>{skill.name}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+
+      <!-- 經歷 -->
+      <div class="bg-base-200 p-6 pb-10 rounded-xl shadow-md md:row-span-2">
+        <h2 class="text-2xl font-bold mb-4">經歷</h2>
+        <div class="space-y-6">
+          <div class="relative pl-6 border-l-2 border-primary">
+            <h3 class="font-bold">前端工程師</h3>
+            <p class="text-sm opacity-75 mb-2">2024.06 - 至今</p>
+          </div>
+          <div class="relative pl-6 border-l-2 border-primary">
+            <h3 class="font-bold">六角學院 - 專題教練</h3>
+            <p class="text-sm opacity-75 mb-2">2024.07 - 至今</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 專案經驗 (占1欄) -->
+      <div class="bg-base-200 p-6 pb-10 rounded-xl shadow-md">
+        <h2 class="text-2xl font-bold mb-4">專案經驗</h2>
+        <div class="space-y-3">
+          {
+            projects.slice(0, 2).map((project) => (
+              <div class="p-3 bg-base-100 rounded-lg">
+                <h3 class="font-bold">{project.title}</h3>
+                <p class="text-sm mt-1">{project.description}</p>
+                <div class="flex flex-wrap gap-1 mt-2">
+                  {project.tags.map((tag) => (
+                    <span class="badge badge-sm">{tag}</span>
+                  ))}
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+
+      <!-- 文章推薦 (占1欄) -->
+      <div class="bg-base-200 p-6 pb-10 rounded-xl shadow-md">
+        <h2 class="text-2xl font-bold mb-4">推薦閱讀</h2>
+        <div class="space-y-3">
+          <a
+            href="/docs/css/css-grid-system"
+            class="block p-3 bg-base-100 rounded-lg hover:bg-base-300 transition-colors"
+          >
+            <h3 class="font-bold">網格系統概念</h3>
+            <p class="text-sm mt-1 opacity-75">了解網格系統如何幫助前端開發</p>
+          </a>
+          <a
+            href="/blog/rocket-week2"
+            class="block p-3 bg-base-100 rounded-lg hover:bg-base-300 transition-colors"
+          >
+            <h3 class="font-bold">火箭日記-第 2 週</h3>
+            <p class="text-sm mt-1 opacity-75">從零開始的前端學習歷程</p>
+          </a>
+        </div>
+      </div>
+
+      <!-- 聯絡資訊 (占3欄) -->
+      <div
+        class="bg-base-200 p-6 md:px-20 md:py-10 rounded-xl shadow-md md:col-span-3"
+      >
+        <div class="flex flex-col gap-4">
+          <h2 class="text-2xl font-bold">最新文章</h2>
+          <div class="space-y-6">
+            {
+              recentPosts.map((post) => (
+                <div class="py-6 border-b border-gray-200">
+                  <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
+                    <div class="flex-grow">
+                      <div>
+                        <h3 class="mb-1 text-xl font-bold hover:text-primary transition-colors">
+                          <a href={post.url}>{post.title}</a>
+                        </h3>
+                        <div class="text-gray-500 md:text-right flex flex-row items-center md:items-end gap-3 md:gap-1 text-sm opacity-75">
+                          <time>{post.date}</time>
+                          <span class="hidden md:inline">•</span>
+                          <span>{post.readingTime}</span>
+                        </div>
+                      </div>
+
+                      <p class="mt-3">{post.description}</p>
+                      <div class="flex justify-end mt-4">
+                        <a href={post.url} class="btn btn-sm btn-primary">
+                          閱讀更多
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))
+            }
+          </div>
+          <div class="text-center mt-8">
+            <a href="/posts" class="btn btn-outline">瀏覽所有文章</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

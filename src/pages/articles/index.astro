@@ -1,0 +1,110 @@
+---
+import DefaultLayout from "../../layouts/DefaultLayout.astro";
+
+// 定義文章資料的型別
+type ArticleImport = {
+  frontmatter: {
+    title?: string;
+    date?: string;
+    [key: string]: any;
+  };
+  file: string;
+  url: string;
+};
+
+type Article = {
+  title: string;
+  url: string;
+  date: Date;
+  year: number;
+};
+
+// 匯入所有來自 posts 和 docs 目錄的 markdown 檔案
+const postsImports = Object.values(
+  await import.meta.glob<ArticleImport>("../../articles/posts/*.md", {
+    eager: true,
+  })
+);
+const docsImports = Object.values(
+  await import.meta.glob<ArticleImport>("../../articles/docs/**/*.md", {
+    eager: true,
+  })
+);
+
+// 合併所有文章
+const allArticles = [...postsImports, ...docsImports];
+
+// 處理並依日期排序文章
+const articles: Article[] = allArticles.map((article) => {
+  // 從 frontmatter 取得日期，若無則使用目前日期
+  const date = article.frontmatter?.date
+    ? new Date(article.frontmatter.date)
+    : new Date();
+
+  // 構建 URL：優先使用 frontmatter 中的 slug，否則使用文件名
+  const slug =
+    article.frontmatter?.slug ||
+    article.file.split("/").pop()?.replace(".md", "");
+  const url = `/articles/${slug}`;
+
+  return {
+    title:
+      article.frontmatter?.title ||
+      article.file.split("/").pop()?.replace(".md", "") ||
+      "Untitled",
+    url: url,
+    date: date,
+    year: date.getFullYear(),
+  };
+});
+
+// 依日期排序（最新的在前）
+articles.sort((a, b) => Number(b.date) - Number(a.date));
+
+// 依年份分組
+const articlesByYear: Record<number, Article[]> = {};
+articles.forEach((article) => {
+  const year = article.year;
+  if (!articlesByYear[year]) {
+    articlesByYear[year] = [];
+  }
+  articlesByYear[year].push(article);
+});
+
+// 取得年份並排序（由新到舊）
+const years = Object.keys(articlesByYear)
+  .map(Number)
+  .sort((a, b) => b - a);
+---
+
+<DefaultLayout>
+  <main class="container mx-auto px-4 py-8">
+    <h1 class="text-4xl font-bold mb-8">文章列表</h1>
+
+    {
+      years.map((year) => (
+        <div class="mb-12">
+          <h2 class="text-2xl font-semibold mb-4 pb-2 border-b">{year}</h2>
+          <ul class="space-y-2">
+            {articlesByYear[year].map((article) => (
+              <li class="border-l-4 border-primary pl-4 py-0.5 hover:bg-base-200 transition-colors">
+                <a
+                  href={article.url}
+                  class="link link-hover flex flex-col sm:flex-row sm:justify-between"
+                >
+                  <span class="text-base font-medium">{article.title}</span>
+                  <span class="text-sm text-base-content/70">
+                    {article.date.toLocaleDateString("zh-TW", {
+                      month: "long",
+                      day: "numeric",
+                    })}
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))
+    }
+  </main>
+</DefaultLayout>

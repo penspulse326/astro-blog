@@ -1,0 +1,31 @@
+---
+import "../styles/global.css";
+import Navbar from "../components/Navbar.astro";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Astro Basics</title>
+  </head>
+  <body>
+    <Navbar />
+    <div
+      class="flex flex-col min-h-[calc(100dvh-112px)] bg-base-100 grid-paper"
+    >
+      <slot />
+    </div>
+    <!-- 頁尾 -->
+    <footer class="footer footer-center p-4 h-14 bg-base-200 text-base-content">
+      <div>
+        <p>Copyright © 2024 - All rights reserved</p>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<style></style>
